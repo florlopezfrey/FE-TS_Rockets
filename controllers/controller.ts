@@ -8,7 +8,7 @@ var cohete:Cohete ;
 var propulsor:Propulsor;
 
 var potenciaInicial: number = 0;
-var cantProp = 30;
+var cantProp = 3;
 var todasLasPotencias = [10,30,80];
 var potenciasAceleradas = [0,0,0]; // acá se va actualizando el valor de la potencia de cada propulsor
 var potenciasAcumuladas = 0; // esta variable acumula la suma de aceleres/desaceleres
