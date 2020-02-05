@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <title>Rockets</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- CSS -->
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> -->
+  <!-- scripts -->
+  <script src="../models/cohetes.js"></script>
+  <script src="../models/propulsores.js"></script>
+
+</head>
+
+<body class="text-center mt-5">
+
+    <h2>COHETES</h2>
+  
+    <!-- <form method="GET" action="" name="vehiculos" id="formPaso1" class="mt-5" novalidate>
+      <div class="form-row">
+        <div class="col-md-4 offset-md-2 mb-3 text-left">
+          <label>Nombe del cohete</label> <br>
+          <input type="text" class="form-control" name="nombre" id="nombre">
+        </div>
+        <div class="col-md-4 mb-3 text-left">
+          <label>Cantidad de propulsores</label> <br>
+          <input type="text" class="form-control" name="propulsores" id="propulsores">
+        </div>
+    </div>
+    <button class="btn btn-primary" onclick="createRocket(); return false;">Crear un cohete</button>
+  </form> -->
+
+
+
+  <button class="btn btn-primary" onclick="createRocket(); return false;">Crear un cohete</button>
+  <br><br>
+  <button class="btn btn-primary" onclick="addPower(); return false;">Acelerar</button>
+  <button class="btn btn-primary" onclick="removePower(); return false;">Desacelerar</button>
+  <br><br>  
+
+  <div id="cohete1">
+    El cohete <span id="nombreCohete"></span> tiene <span id="cantPropulsores"></span> propulsores, con una potencia máxima cada uno de <span id="potenciasPropulsores"></span>
+    <br>
+    Ahora el cohete tiene una potencia total de <span id="potenciaTotal"></span>
+  </div>
+  
+  
+<script src="../controllers/controller.js"></script>
+
+</body>
+
+</html>
