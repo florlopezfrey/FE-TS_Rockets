@@ -10,7 +10,6 @@ var potenciaInicial = 0;
 var cantProp = 3;
 var todasLasPotencias = [10, 30, 80];
 var potenciasAceleradas = [0, 0, 0]; // acá se va actualizando el valor de la potencia de cada propulsor
-var potenciasAcumuladas = 0; // esta variable acumula la suma de aceleres/desaceleres
 function createRocket() {
     // para cuando cree el BTN
     // var nombre = ((<HTMLInputElement>document.getElementById('nombre')).value).toUpperCase( );
@@ -22,7 +21,7 @@ function createRocket() {
     nombreCohete.innerHTML = cohete.nombre;
     cantPropulsores.innerHTML = propulsor.cantidad + ' ';
     potenciasPropulsores.innerHTML = propulsor.potencia[0] + ', ' + propulsor.potencia[1] + ', ' + propulsor.potencia[2] + '.';
-    potenciaTotal.innerHTML = potenciasAcumuladas + '.';
+    potenciaTotal.innerHTML = '0';
 }
 function addPower() {
     // check si está creado el cohete antes de acelerar la potencia
@@ -50,44 +49,30 @@ function addPower() {
             }
         });
     }
-    potenciasAcumuladas = potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; });
-    potenciaTotal.innerHTML = potenciasAcumuladas + '.';
-    // **** ESTO FUNCIONA PERO A VER ******
-    // potenciasAceleradas = todasLasPotencias.map(
-    //     function(valorArray) {
-    //         if (potenciaInicial <= valorArray) { 
-    //             return potenciaInicial;
-    //         } else {
-    //             return valorArray;
-    //         }
-    //     }
-    // );
+    // print el total de las potencias en el HTML
+    potenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
 }
 function removePower() {
-    console.log('al desacelerar inicio las potAcum son: ' + potenciasAcumuladas);
     if (potenciaInicial == 0) {
         alert('No se puede desacelerar porque la velocidad está en 0. Primero debes acelerar el cohete');
         return;
     }
-    // var mapFP = potenciasAceleradas.map(
-    //     function(valorArray) {
-    //         if (valorArray >= 10) {
-    //             return valorArray -=10;
-    //         } else {return 0;}
-    //     }
-    // );
-    // console.log('map: '+mapFP);
-    // potenciasAcumuladas -= (mapFP.reduce((acumulador, items) => acumulador += items));
-    // potenciaTotal.innerHTML = potenciasAcumuladas + '.';
-    // console.log('al desacelerar fin las por acum: '+potenciasAcumuladas);
-    // ******>>>>>>>> probar de hace run foreach en vez de un map, porque el map genera un nuevo array mientras que el foreach aplica la funcion a cada item del array. Aca no necesito un nuevo array sino modficar el existente <<<<<<<<<<<<<<<<<<<<<<<
-    potenciasAceleradas.forEach(function (item) {
-        item = item - 10;
-        return item;
-    });
-    console.log(potenciasAceleradas);
-    var numerosFP = [1, 2, 3, 4];
-    numerosFP.forEach(function (elemento, index) { return numerosFP[index] = elemento + 10; });
-    console.log('array for each: ' + numerosFP);
+    else {
+        potenciaInicial -= 10;
+        potenciasAceleradas.forEach(function (elemento, index) {
+            if (potenciasAceleradas[index] > 0) {
+                potenciasAceleradas[index] = elemento - potenciaInicial;
+            }
+            else if (potenciasAceleradas[index] == 0) {
+                potenciasAceleradas[index] = 0;
+            }
+            else {
+                alert('No se puede desacelerar porque la velocidad está en 0');
+            }
+        });
+    }
+    // corregir los números negativos de las potencias
+    // print el total de las potencias en el HTML
+    potenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
 }
 //cohete = new Cohete('LDSFJA32');
