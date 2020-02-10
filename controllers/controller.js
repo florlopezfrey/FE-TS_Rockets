@@ -1,27 +1,40 @@
 "use strict";
-var cohete1 = document.getElementById('cohete1');
-var nombreCohete = document.getElementById('nombreCohete');
-var cantPropulsores = document.getElementById('cantPropulsores');
-var potenciasPropulsores = document.getElementById('potenciasPropulsores');
-var potenciaTotal = document.getElementById('potenciaTotal');
+// valores a mostrar en el HTML
+var displayCohete1 = document.getElementById('displayCohete1');
+var displayNombreCohete = document.getElementById('displayNombreCohete');
+var displayCantPropulsores = document.getElementById('displayCantPropulsores');
+var displayPotenciasPropulsores = document.getElementById('displayPotenciasPropulsores');
+var displayPotenciaTotal = document.getElementById('displayPotenciaTotal');
+// datos de los models
 var cohete;
 var propulsor;
+// variables para usar en las funciones
 var potenciaInicial = 0;
-var cantProp = 3;
-var todasLasPotencias = [10, 30, 80];
-var potenciasAceleradas = [0, 0, 0]; // acá se va actualizando el valor de la potencia de cada propulsor
+var cantProp = 0;
+var todasLasPotencias;
+var potenciasAceleradas; // acá se va actualizando el valor de la potencia de cada propulsor
 function createRocket() {
-    // para cuando cree el BTN
-    // var nombre = ((<HTMLInputElement>document.getElementById('nombre')).value).toUpperCase( );
-    // var propulsores = ((<HTMLInputElement>document.getElementById('propulsores')).value).toUpperCase( );
-    cohete = new Cohete('32WESSDS');
+    var nombreCohete = (document.getElementById('nombreCohete').value).toUpperCase();
+    cantProp = Number(document.querySelector('input[name="cantPropulsores"]:checked').value);
+    if (nombreCohete == '') {
+        alert('Debes completar el nombre del cohete y elegir la cantidad de propulsores');
+        return;
+    }
+    else if (cantProp === 3) {
+        todasLasPotencias = [10, 30, 80];
+        potenciasAceleradas = [0, 0, 0];
+    }
+    else if (cantProp === 6) {
+        todasLasPotencias = [30, 40, 50, 50, 30, 10];
+        potenciasAceleradas = [0, 0, 0, 0, 0, 0];
+    }
+    cohete = new Cohete(nombreCohete);
     propulsor = new Propulsor(cantProp, todasLasPotencias);
-    cohete1.setAttribute("style", "visibility: visible;");
-    ;
-    nombreCohete.innerHTML = cohete.nombre;
-    cantPropulsores.innerHTML = propulsor.cantidad + ' ';
-    potenciasPropulsores.innerHTML = propulsor.potencia[0] + ', ' + propulsor.potencia[1] + ', ' + propulsor.potencia[2] + '.';
-    potenciaTotal.innerHTML = '0';
+    displayCohete1.setAttribute("style", "visibility: visible;");
+    displayNombreCohete.innerHTML = cohete.nombre;
+    displayCantPropulsores.innerHTML = propulsor.cantidad + ' ';
+    displayPotenciasPropulsores.innerHTML = todasLasPotencias + '.';
+    displayPotenciaTotal.innerHTML = '0';
 }
 function addPower() {
     // check si está creado el cohete antes de acelerar la potencia
@@ -31,26 +44,26 @@ function addPower() {
     }
     else {
         potenciaInicial += 10;
-    }
-    // check si las potencias aceleradas igualan a todas las potencias para saber si seguir aumentando o no
-    if ((potenciasAceleradas.sort().every(function (value, index) {
-        return value === todasLasPotencias.sort()[index];
-    })) == true) {
-        alert('No se puede acelerar más el cohete; has llegado a la máxima potencia.');
-        return;
-    }
-    else {
-        potenciasAceleradas.forEach(function (elemento, index) {
-            if (potenciaInicial <= todasLasPotencias[index]) {
-                potenciasAceleradas[index] = elemento + 10;
-            }
-            else {
-                potenciasAceleradas[index] = elemento;
-            }
-        });
+        // check si las potencias aceleradas igualan a todas las potencias para saber si seguir aumentando o no
+        if ((potenciasAceleradas.sort().every(function (value, index) {
+            return value === todasLasPotencias.sort()[index];
+        })) == true) {
+            alert('No se puede acelerar más el cohete ' + cohete.nombre + '; has llegado a la máxima potencia.');
+            return;
+        }
+        else {
+            potenciasAceleradas.forEach(function (elemento, index) {
+                if (potenciaInicial <= todasLasPotencias[index]) {
+                    potenciasAceleradas[index] = elemento + 10;
+                }
+                else {
+                    potenciasAceleradas[index] = elemento;
+                }
+            });
+        }
     }
     // print el total de las potencias en el HTML
-    potenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
+    displayPotenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
 }
 function removePower() {
     if (potenciaInicial == 0) {
@@ -60,19 +73,18 @@ function removePower() {
     else {
         potenciaInicial -= 10;
         potenciasAceleradas.forEach(function (elemento, index) {
-            if (potenciasAceleradas[index] > 0) {
-                potenciasAceleradas[index] = elemento - potenciaInicial;
+            if (elemento > 0) {
+                potenciasAceleradas[index] = elemento - 10;
             }
-            else if (potenciasAceleradas[index] == 0) {
-                potenciasAceleradas[index] = 0;
+            else if (elemento == 0) {
+                potenciasAceleradas[index] = elemento;
             }
             else {
-                alert('No se puede desacelerar porque la velocidad está en 0');
+                alert('algo ha fallado');
             }
         });
     }
-    // corregir los números negativos de las potencias
     // print el total de las potencias en el HTML
-    potenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
+    displayPotenciaTotal.innerHTML = (potenciasAceleradas.reduce(function (acumulador, items) { return acumulador += items; })) + '.';
 }
-//cohete = new Cohete('LDSFJA32');
+// para mostrar por pantalla los diferentes cohetes que voy generando, puedo hacer un array con estos cohetes y printearlos

@@ -22,32 +22,30 @@
 
     <h2>COHETES</h2>
   
-    <!-- <form method="GET" action="" name="vehiculos" id="formPaso1" class="mt-5" novalidate>
+   <form method="GET" action="" name="vehiculos" id="formPaso1" class="mt-5" novalidate>
       <div class="form-row">
-        <div class="col-md-4 offset-md-2 mb-3 text-left">
-          <label>Nombe del cohete</label> <br>
-          <input type="text" class="form-control" name="nombre" id="nombre">
+        <div class="col-md-3 offset-md-3 mb-3 text-left">
+          <label>Nombre del cohete</label> <br>
+          <input type="text" class="form-control" name="nombre" id="nombreCohete">
         </div>
-        <div class="col-md-4 mb-3 text-left">
+        <div class="col-md-3 ml-1 mb-3 text-left">
           <label>Cantidad de propulsores</label> <br>
-          <input type="text" class="form-control" name="propulsores" id="propulsores">
+          <input type="radio" name="cantPropulsores" value="3" checked class="mr-1">3 propulsores</input>
+          <input type="radio" name="cantPropulsores" value="6" class="mr-1">6 propulsores</input>
         </div>
     </div>
     <button class="btn btn-primary" onclick="createRocket(); return false;">Crear un cohete</button>
-  </form> -->
+  </form>
 
-
-
-  <button class="btn btn-primary" onclick="createRocket(); return false;">Crear un cohete</button>
   <br><br>
   <button class="btn btn-primary" onclick="addPower(); return false;">Acelerar</button>
   <button class="btn btn-primary" onclick="removePower(); return false;">Desacelerar</button>
   <br><br>  
 
-  <div id="cohete1">
-    El cohete <span id="nombreCohete"></span> tiene <span id="cantPropulsores"></span> propulsores, con una potencia máxima cada uno de <span id="potenciasPropulsores"></span>
+  <div id="displayCohete1">
+    El cohete <span id="displayNombreCohete"></span> tiene <span id="displayCantPropulsores"></span> propulsores, con una potencia máxima cada uno de <span id="displayPotenciasPropulsores"></span>
     <br>
-    Ahora el cohete tiene una potencia total de <span id="potenciaTotal"></span>
+    Ahora el cohete tiene una potencia total de <span id="displayPotenciaTotal"></span>
   </div>
   
   
